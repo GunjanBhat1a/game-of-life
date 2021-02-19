@@ -33,4 +33,18 @@ public class GameOfLifeTest {
         assertTrue(gameOfLife.getNextState().isEmpty());
     }
 
+    @Test
+    void shouldNotChangeStateOfCellWithTwoLiveNeighbour()
+    {
+        List<Cell> initialState = new ArrayList<>();
+        initialState.add(new Cell(1, 1));
+        initialState.add(new Cell(2,1));
+        initialState.add(new Cell(3,2));
+
+        GameOfLife gameOfLife = new GameOfLife((initialState));
+        List<Cell> expectedNextState = new ArrayList<>();
+        expectedNextState.add(new Cell(2,1));
+
+        assertTrue(gameOfLife.getNextState().containsAll(expectedNextState));
+    }
 }

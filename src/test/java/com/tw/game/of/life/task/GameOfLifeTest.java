@@ -91,5 +91,20 @@ public class GameOfLifeTest {
         assertTrue(expectedNextState.containsAll(gameOfLife.getNextState()));
     }
 
+    @Test
+    void shouldMakeDeadCellWithExactlyThreeLiveNeighboursAlive(){
+        List<Cell> initialState = new ArrayList<>();
+        initialState.add(new Cell(1, 1));
+        initialState.add(new Cell(1, 0));
+        initialState.add(new Cell(1, 2));
+
+        GameOfLife gameOfLife = new GameOfLife((initialState));
+        List<Cell> expectedNextState = new ArrayList<>();
+        expectedNextState.add(new Cell(1, 1));
+        expectedNextState.add(new Cell(0, 1));
+        expectedNextState.add(new Cell(2, 1));
+
+        assertTrue(expectedNextState.containsAll(gameOfLife.getNextState()));
+    }
 
 }

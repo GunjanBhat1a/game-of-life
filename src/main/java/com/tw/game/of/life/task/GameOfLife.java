@@ -31,11 +31,15 @@ public class GameOfLife {
         return liveCells;
     }
 
-    private void stateOfCurrentCell(List<Cell> liveCells, Cell liveCell, List<Cell> neighbours) {
+    private void stateOfCurrentCell(List<Cell> liveCells, Cell cell, List<Cell> neighbours) {
         int countLiveNeighbours = liveNeighboursCount(neighbours);
 
-        if (countLiveNeighbours < 2)
-            liveCells.remove(liveCell);
+        if(!initialState.contains(cell) && countLiveNeighbours == 3)
+            liveCells.add(cell);
+        else if(countLiveNeighbours < 2)
+            liveCells.remove(cell);
+
+
     }
 
     private void stateOfNeighbours(List<Cell> liveCells, List<Cell> neighbours, HashSet<Cell> explored) {

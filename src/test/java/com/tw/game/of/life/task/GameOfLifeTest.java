@@ -44,7 +44,31 @@ public class GameOfLifeTest {
         GameOfLife gameOfLife = new GameOfLife((initialState));
         List<Cell> expectedNextState = new ArrayList<>();
         expectedNextState.add(new Cell(2,1));
+        expectedNextState.add(new Cell(2,2));
 
-        assertTrue(gameOfLife.getNextState().containsAll(expectedNextState));
+        assertTrue(expectedNextState.containsAll(gameOfLife.getNextState()));
     }
+
+    @Test
+    void shouldNotChangeStateOfCellWithThreeLiveNeighbours()
+    {
+        List<Cell> initialState = new ArrayList<>();
+        initialState.add(new Cell(1, 1));
+        initialState.add(new Cell(2,1));
+        initialState.add(new Cell(3,2));
+        initialState.add(new Cell(2,0));
+
+        GameOfLife gameOfLife = new GameOfLife((initialState));
+        List<Cell> expectedNextState = new ArrayList<>();
+        expectedNextState.add(new Cell(1,0));
+        expectedNextState.add(new Cell(1,1));
+        expectedNextState.add(new Cell(2,0));
+        expectedNextState.add(new Cell(2,1));
+        expectedNextState.add(new Cell(2,2));
+        expectedNextState.add(new Cell(3,1));
+
+        assertTrue(expectedNextState.containsAll(gameOfLife.getNextState()));
+    }
+
+
 }

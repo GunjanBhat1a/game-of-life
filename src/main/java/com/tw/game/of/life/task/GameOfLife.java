@@ -20,28 +20,44 @@ public class GameOfLife {
 
         for (Cell liveCell : initialState) {
 
-            List<Cell> neighbours = liveCell.getNeighbours();
-            explored.add(liveCell);
+            if(!explored.contains(liveCell)) {
+                List<Cell> neighbours = liveCell.getNeighbours();
+                explored.add(liveCell);
 
-            stateOFCurrentCell(liveCells, liveCell, neighbours);
-
+                stateOfCurrentCell(liveCells, liveCell, neighbours);
+                stateOfNeighbours(liveCells, neighbours, explored);
+            }
         }
         return liveCells;
     }
 
-
-    private void stateOFCurrentCell(List<Cell> liveCells, Cell liveCell, List<Cell> neighbours) {
+    private void stateOfCurrentCell(List<Cell> liveCells, Cell liveCell, List<Cell> neighbours) {
         int countLiveNeighbours = liveNeighboursCount(neighbours);
 
         if (countLiveNeighbours < 2)
             liveCells.remove(liveCell);
     }
 
+    private void stateOfNeighbours(List<Cell> liveCells, List<Cell> neighbours, HashSet<Cell> explored) {
+
+        for(Cell neighbouringCell : neighbours)
+        {
+            if(!explored.contains(neighbouringCell))
+            {
+                List<Cell> neighboursOfNeighbouringCell = neighbouringCell.getNeighbours();
+
+                stateOfCurrentCell(liveCells, neighbouringCell, neighboursOfNeighbouringCell);
+
+                explored.add(neighbouringCell);
+            }
+        }
+    }
 
     private int liveNeighboursCount(List<Cell> neighbours) {
         return neighbours.stream()
                 .filter(initialState::contains)
                 .collect(Collectors.toList()).size();
     }
+
 
 }

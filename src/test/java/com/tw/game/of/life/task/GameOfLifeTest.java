@@ -20,4 +20,17 @@ public class GameOfLifeTest {
         assertTrue(gameOfLife.getNextState().isEmpty());
 
     }
+
+    @Test
+    void shouldMakeCellWithOneALiveNeighbourDead()
+    {
+        List<Cell> initialState = new ArrayList<>();
+        initialState.add(new Cell(0, 0));
+        initialState.add(new Cell(0,1));
+
+        GameOfLife gameOfLife = new GameOfLife((initialState));
+
+        assertTrue(gameOfLife.getNextState().isEmpty());
+    }
+
 }

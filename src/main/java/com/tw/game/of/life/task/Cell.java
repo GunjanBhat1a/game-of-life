@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class Cell {
 
-    private final int xCoordinate;
-    private final int yCoordinate;
+     final int xCoordinate;
+   final int yCoordinate;
     private final int NO_OF_DIRECTIONS = 8;
 
     public Cell(int xCoordinate, int yCoordinate) {

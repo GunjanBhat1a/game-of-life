@@ -20,7 +20,7 @@ public class GameOfLife {
 
         for (Cell liveCell : initialState) {
 
-            if(!explored.contains(liveCell)) {
+            if (!explored.contains(liveCell)) {
                 List<Cell> neighbours = liveCell.getNeighbours();
                 explored.add(liveCell);
 
@@ -34,20 +34,20 @@ public class GameOfLife {
     private void stateOfCurrentCell(List<Cell> liveCells, Cell cell, List<Cell> neighbours) {
         int countLiveNeighbours = liveNeighboursCount(neighbours);
 
-        if(!initialState.contains(cell) && countLiveNeighbours == 3)
-            liveCells.add(cell);
-        else if(countLiveNeighbours < 2)
-            liveCells.remove(cell);
-
+        if (!initialState.contains(cell)) {
+            if (countLiveNeighbours == 3)
+                liveCells.add(cell);
+        } else {
+            if (countLiveNeighbours < 2 || countLiveNeighbours > 3)
+                liveCells.remove(cell);
+        }
 
     }
 
     private void stateOfNeighbours(List<Cell> liveCells, List<Cell> neighbours, HashSet<Cell> explored) {
 
-        for(Cell neighbouringCell : neighbours)
-        {
-            if(!explored.contains(neighbouringCell))
-            {
+        for (Cell neighbouringCell : neighbours) {
+            if (!explored.contains(neighbouringCell)) {
                 List<Cell> neighboursOfNeighbouringCell = neighbouringCell.getNeighbours();
 
                 stateOfCurrentCell(liveCells, neighbouringCell, neighboursOfNeighbouringCell);

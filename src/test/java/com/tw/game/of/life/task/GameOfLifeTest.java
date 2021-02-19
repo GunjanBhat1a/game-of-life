@@ -22,11 +22,10 @@ public class GameOfLifeTest {
     }
 
     @Test
-    void shouldMakeCellWithOneALiveNeighbourDead()
-    {
+    void shouldMakeCellWithOneALiveNeighbourDead() {
         List<Cell> initialState = new ArrayList<>();
         initialState.add(new Cell(0, 0));
-        initialState.add(new Cell(0,1));
+        initialState.add(new Cell(0, 1));
 
         GameOfLife gameOfLife = new GameOfLife((initialState));
 
@@ -34,38 +33,60 @@ public class GameOfLifeTest {
     }
 
     @Test
-    void shouldNotChangeStateOfCellWithTwoLiveNeighbour()
-    {
+    void shouldNotChangeStateOfCellWithTwoLiveNeighbour() {
         List<Cell> initialState = new ArrayList<>();
         initialState.add(new Cell(1, 1));
-        initialState.add(new Cell(2,1));
-        initialState.add(new Cell(3,2));
+        initialState.add(new Cell(2, 1));
+        initialState.add(new Cell(3, 2));
 
         GameOfLife gameOfLife = new GameOfLife((initialState));
         List<Cell> expectedNextState = new ArrayList<>();
-        expectedNextState.add(new Cell(2,1));
-        expectedNextState.add(new Cell(2,2));
+        expectedNextState.add(new Cell(2, 1));
+        expectedNextState.add(new Cell(2, 2));
 
         assertTrue(expectedNextState.containsAll(gameOfLife.getNextState()));
     }
 
     @Test
-    void shouldNotChangeStateOfCellWithThreeLiveNeighbours()
-    {
+    void shouldNotChangeStateOfCellWithThreeLiveNeighbours() {
         List<Cell> initialState = new ArrayList<>();
         initialState.add(new Cell(1, 1));
-        initialState.add(new Cell(2,1));
-        initialState.add(new Cell(3,2));
-        initialState.add(new Cell(2,0));
+        initialState.add(new Cell(2, 1));
+        initialState.add(new Cell(3, 2));
+        initialState.add(new Cell(2, 0));
 
         GameOfLife gameOfLife = new GameOfLife((initialState));
         List<Cell> expectedNextState = new ArrayList<>();
-        expectedNextState.add(new Cell(1,0));
-        expectedNextState.add(new Cell(1,1));
-        expectedNextState.add(new Cell(2,0));
-        expectedNextState.add(new Cell(2,1));
-        expectedNextState.add(new Cell(2,2));
-        expectedNextState.add(new Cell(3,1));
+        expectedNextState.add(new Cell(1, 0));
+        expectedNextState.add(new Cell(1, 1));
+        expectedNextState.add(new Cell(2, 0));
+        expectedNextState.add(new Cell(2, 1));
+        expectedNextState.add(new Cell(2, 2));
+        expectedNextState.add(new Cell(3, 1));
+
+        assertTrue(expectedNextState.containsAll(gameOfLife.getNextState()));
+    }
+
+
+    @Test
+    void shouldMakeCellWithMoreThanFourLiveNeighboursDead() {
+        List<Cell> initialState = new ArrayList<>();
+        initialState.add(new Cell(1, 1));
+        initialState.add(new Cell(1, 2));
+        initialState.add(new Cell(1, 3));
+        initialState.add(new Cell(2, 2));
+        initialState.add(new Cell(2, 3));
+        initialState.add(new Cell(2, 4));
+
+        GameOfLife gameOfLife = new GameOfLife((initialState));
+        List<Cell> expectedNextState = new ArrayList<>();
+        expectedNextState.add(new Cell(0, 2));
+        expectedNextState.add(new Cell(1, 1));
+        expectedNextState.add(new Cell(1, 4));
+        expectedNextState.add(new Cell(2, 1));
+        expectedNextState.add(new Cell(2, 4));
+        expectedNextState.add(new Cell(3, 3));
+
 
         assertTrue(expectedNextState.containsAll(gameOfLife.getNextState()));
     }
